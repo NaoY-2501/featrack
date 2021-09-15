@@ -9,6 +9,6 @@ services:
     env_file:
       - .env
     environment:
-      - SPOTIFY_API_CLIENT_ID=${CLIENT_ID}
-      - SPOTIFY_API_CLIENT_SECRET=${CLIENT_SECRET}
+      - REACT_APP_SPOTIFY_API_CLIENT_ID=${CLIENT_ID}
+      - REACT_APP_SPOTIFY_API_CLIENT_SECRET=${CLIENT_SECRET}
     command: sh -c "cd /usr/local/beatrack && npm start"

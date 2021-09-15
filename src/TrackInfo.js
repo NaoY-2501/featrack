@@ -40,15 +40,14 @@ function Beatrack(props) {
     const [statusCode, setStatusCode] = useState(200)
 
     function msToMinutesAndSecond(millis){
-        console.log(millis)
         const minutes = Math.floor(millis / 60000)
         const seconds = ((millis % 60000) / 1000).toFixed(0)
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds
     }
 
     function getToken() {
-        const clientId = process.env.SPOTIFY_API_CLIENT_ID
-        const clientSecret = process.env.SPOTIFY_API_CLIENT_SECRET
+        const clientId = process.env.REACT_APP_SPOTIFY_API_CLIENT_ID
+        const clientSecret = process.env.REACT_APP_SPOTIFY_API_CLIENT_SECRET
         const data = 'grant_type=client_credentials'
         const config = {
             headers: {
@@ -56,7 +55,6 @@ function Beatrack(props) {
                 'Content-Type': 'application/x-www-form-urlencoded',
             }
         }
-        console.log(clientId, clientSecret)
         axios.post(
             'https://accounts.spotify.com/api/token',
             data,
