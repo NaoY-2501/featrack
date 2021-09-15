@@ -59,10 +59,9 @@ function Beatrack(props) {
             data,
             config
         ).then(res => {
-            console.log(res['data'])
             setToken(res['data']['access_token'])
         }).catch(error => {
-            console.log(error)
+            console.log(`${error.response.status} on fetch token.`)
         })
     }
 
