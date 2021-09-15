@@ -47,8 +47,8 @@ function Beatrack(props) {
     }
 
     function getToken() {
-        const clientId = process.env.REACT_APP_CLIENT_ID
-        const clientSecret = process.env.REACT_APP_CLIENT_SECRET
+        const clientId = process.env.SPOTIFY_API_CLIENT_ID
+        const clientSecret = process.env.SPOTIFY_API_CLIENT_SECRET
         const data = 'grant_type=client_credentials'
         const config = {
             headers: {
