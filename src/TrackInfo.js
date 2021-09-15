@@ -37,7 +37,6 @@ function Beatrack(props) {
     const [duration, setDuration] = useState('')
     const [bpm, setBpm] = useState(0)
     const [pitch, setPitch] = useState('')
-    const [statusCode, setStatusCode] = useState(200)
 
     function msToMinutesAndSecond(millis){
         const minutes = Math.floor(millis / 60000)
@@ -89,7 +88,7 @@ function Beatrack(props) {
             setTitle(data['name'])
             setDuration(msToMinutesAndSecond(data['duration_ms']))
         }).catch(error => {
-            setStatusCode(error.response.status)
+            console.log(`${error.response.status} from https://api.spotify.com/v1/tracks/${trackId}`)
         })
         axios.get(
             `https://api.spotify.com/v1/audio-features?ids=${trackId}`,
@@ -103,7 +102,7 @@ function Beatrack(props) {
                 PITCH_CLASS[audio_features['key']].concat(' ', MODE[audio_features['mode']])
             )
         }).catch(error => {
-            return false
+            console.log(`${error.response.status} from https://api.spotify.com/v1/audio-features?ids=${trackId}`)
         })
     }
 
@@ -132,6 +131,7 @@ function Beatrack(props) {
                 getTrackInfo(props.trackId)
             }
         },
+        // eslint-disable-next-line
         [props.trackId]
     )
 
