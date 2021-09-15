@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - .:/usr/local/beatrack
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - REACT_APP_CLIENT_ID=${CLIENT_ID}
+      - REACT_APP_CLIENT_SECRET=${CLIENT_SECRET}
+    command: sh -c "cd /usr/local/beatrack && npm start"
