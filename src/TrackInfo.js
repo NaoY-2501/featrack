@@ -183,7 +183,7 @@ function Beatrack(props) {
                             </Heading>
                         </Media.Item>
                     </Media>
-                    <TwitterShareButton title={`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\n`} url={trackUrl} hashtags={["FEATRUCK"]}>
+                    <TwitterShareButton title={`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\n`} url={trackUrl} hashtags={["FEATRACK"]}>
                         <TwitterIcon size={32} round />
                     </TwitterShareButton>
                     <Button onClick={copyHandler}>
