@@ -3,6 +3,8 @@ import {Buffer} from "buffer";
 import axios from "axios";
 import React, {useState, useLayoutEffect} from 'react';
 import {Block, Button, Card, Heading, Media, Notification} from "react-bulma-components";
+import { TwitterShareButton } from "react-share";
+import { TwitterIcon } from "react-share";
 
 import './Featrack.css';
 import 'bulma/css/bulma.min.css';
@@ -37,6 +39,8 @@ function Beatrack(props) {
     const [duration, setDuration] = useState('')
     const [bpm, setBpm] = useState(0)
     const [pitch, setPitch] = useState('')
+    const [tweetBody, setTweetBody] = useState('')
+    const [trackUrl, setTrackUrl] = useState('')
 
     function msToMinutesAndSecond(millis){
         const minutes = Math.floor(millis / 60000)
@@ -100,6 +104,9 @@ function Beatrack(props) {
             setPitch(
                 PITCH_CLASS[audio_features['key']].concat(' ', MODE[audio_features['mode']])
             )
+            setTweetBody(`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\n`)
+            setTrackUrl(`https://open.spotify.com/track/${trackId}`)
+            console.log(tweetBody)
         }).catch(error => {
             console.log(`${error.response.status} from https://api.spotify.com/v1/audio-features?ids=${trackId}`)
         })
@@ -124,10 +131,11 @@ function Beatrack(props) {
         () => {
             getToken()
             if (props.trackId) {
-                console.log(props.trackId)
                 setArtist('')
                 setTitle('')
                 getTrackInfo(props.trackId)
+                console.log(`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\n`)
+                console.log(tweetBody)
             }
         },
         // eslint-disable-next-line
@@ -175,6 +183,9 @@ function Beatrack(props) {
                             </Heading>
                         </Media.Item>
                     </Media>
+                    <TwitterShareButton title={`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\n`} url={trackUrl} hashtags={["FEATRUCK"]}>
+                        <TwitterIcon size={32} round />
+                    </TwitterShareButton>
                     <Button onClick={copyHandler}>
                         Copy audio features to clipboard
                     </Button>
