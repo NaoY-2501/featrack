@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/featrack/static/css/main.5b0afe37.chunk.css",
-    "main.js": "/featrack/static/js/main.f3b088a8.chunk.js",
-    "main.js.map": "/featrack/static/js/main.f3b088a8.chunk.js.map",
+    "main.js": "/featrack/static/js/main.6839a4c0.chunk.js",
+    "main.js.map": "/featrack/static/js/main.6839a4c0.chunk.js.map",
     "runtime-main.js": "/featrack/static/js/runtime-main.d6b49a1c.js",
     "runtime-main.js.map": "/featrack/static/js/runtime-main.d6b49a1c.js.map",
     "static/css/2.41953c31.chunk.css": "/featrack/static/css/2.41953c31.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.41953c31.chunk.css",
     "static/js/2.73d918e0.chunk.js",
     "static/css/main.5b0afe37.chunk.css",
-    "static/js/main.f3b088a8.chunk.js"
+    "static/js/main.6839a4c0.chunk.js"
   ]
 }
