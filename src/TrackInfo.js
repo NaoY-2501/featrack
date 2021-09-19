@@ -31,7 +31,7 @@ const MODE = {
 
 axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded'
 
-function Beatrack(props) {
+function TrackInfo(props) {
     const [token, setToken] = useState('')
     const [artist, setArtist] = useState('')
     const [image, setImage] = useState('')
@@ -196,4 +196,4 @@ function Beatrack(props) {
 
 }
 
-export default Beatrack
+export default TrackInfo
