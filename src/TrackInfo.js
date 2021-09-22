@@ -5,6 +5,7 @@ import React, {useState, useLayoutEffect} from 'react';
 import {Block, Button, Card, Heading, Media, Notification} from "react-bulma-components";
 import { TwitterShareButton } from "react-share";
 import { TwitterIcon } from "react-share";
+import { getKey } from "camelot-wheel";
 
 import './Featrack.css';
 import 'bulma/css/bulma.min.css';
@@ -29,6 +30,11 @@ const MODE = {
     1: 'Major'
 }
 
+const CAMELOT_WHEEL_MODE = {
+    0: 'A',
+    1: 'B'
+}
+
 axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded'
 
 function TrackInfo(props) {
@@ -39,8 +45,8 @@ function TrackInfo(props) {
     const [duration, setDuration] = useState('')
     const [bpm, setBpm] = useState(0)
     const [pitch, setPitch] = useState('')
-    const [tweetBody, setTweetBody] = useState('')
     const [trackUrl, setTrackUrl] = useState('')
+    const [camelot, setCamelot] = useState('')
 
     function msToMinutesAndSecond(millis){
         const minutes = Math.floor(millis / 60000)
@@ -85,7 +91,6 @@ function TrackInfo(props) {
             config
         ).then(res => {
             const data = res.data
-            console.log(data)
             setArtist(data['artists'][0]['name'])
             setImage(data['album']['images'][0]['url'])
             setTitle(data['name'])
@@ -99,14 +104,17 @@ function TrackInfo(props) {
         ).then(res => {
             const data = res['data']
             const audio_features = data['audio_features'][0]
-            console.log(audio_features)
             setBpm(audio_features['tempo'].toFixed(1))
             setPitch(
                 PITCH_CLASS[audio_features['key']].concat(' ', MODE[audio_features['mode']])
             )
-            setTweetBody(`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\n`)
+            const camelotKey = getKey({
+                pitchClass: audio_features['key'],
+                mode: audio_features['mode']
+            })
+            const camelot = `${camelotKey['camelotPosition']}${CAMELOT_WHEEL_MODE[camelotKey['mode']]}`
+            setCamelot(camelot)
             setTrackUrl(`https://open.spotify.com/track/${trackId}`)
-            console.log(tweetBody)
         }).catch(error => {
             console.log(`${error.response.status} from https://api.spotify.com/v1/audio-features?ids=${trackId}`)
         })
@@ -117,7 +125,8 @@ function TrackInfo(props) {
             title,
             artist,
             bpm,
-            pitch
+            pitch,
+            camelot
         ]
         const csvTrackFeatures = trackFeatures.join()
         navigator.clipboard.writeText(csvTrackFeatures).then(result =>{
@@ -134,8 +143,6 @@ function TrackInfo(props) {
                 setArtist('')
                 setTitle('')
                 getTrackInfo(props.trackId)
-                console.log(`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\n`)
-                console.log(tweetBody)
             }
         },
         // eslint-disable-next-line
@@ -179,12 +186,13 @@ function TrackInfo(props) {
                             <Heading subtitle size={6}>
                                 <p>BPM: {bpm}</p>
                                 <p>Key: {pitch}</p>
+                                <p>Camelot: {camelot}</p>
                                 <p>Duration: {duration}</p>
                             </Heading>
                         </Media.Item>
                     </Media>
                     <TwitterShareButton
-                        title={`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\n`}
+                        title={`${title}/${artist}\nBPM:${bpm}\nKey: ${pitch}\nCamelot: ${camelot}`}
                         url={trackUrl}
                         hashtags={["FEATRACK"]}
                     >
