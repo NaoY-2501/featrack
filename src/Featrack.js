@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import React, {useState} from 'react';
 import {Block, Box, Container, Form, Heading, Hero} from 'react-bulma-components';
 
@@ -6,6 +8,7 @@ import TrackInfo from './TrackInfo';
 
 
 import 'bulma/css/bulma.min.css';
+import './Featrack.css';
 
 axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded'
 const { Input } = Form;
@@ -49,6 +52,11 @@ function Featrack() {
             <Hero>
                 <Hero.Body>
                     <Container>
+                        <Heading size={6} textAlign={"right"}>
+                        <a href="https://github.com/NaoY-2501/featrack">
+                            <FontAwesomeIcon icon={faGithub} size="2x" />
+                        </a>
+                        </Heading>
                         <Heading size={1} textAlign={"center"}>
                             FEATRACK
                         </Heading>
