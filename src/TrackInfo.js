@@ -91,7 +91,8 @@ function TrackInfo(props) {
             config
         ).then(res => {
             const data = res.data
-            setArtist(data['artists'][0]['name'])
+            const artists = data['artists']
+            setArtist(artists.map(x => x['name']).join(','))
             setImage(data['album']['images'][0]['url'])
             setTitle(data['name'])
             setDuration(msToMinutesAndSecond(data['duration_ms']))
